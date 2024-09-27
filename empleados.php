@@ -31,49 +31,45 @@
                 <option value="1">Ingeniero</option>
                 <option value="2">Tecnologo</option>
             </select>
-    <br>
+            <label for="">Ingrese horas trabajadas</label>
+            <input type="number" name="time[]">
+            <br>
+  
 <?php
     echo "<br>";}
     ?>
         <input type="submit" value="Enviar">
         </form>
     <?php
-    } elseif(isset($_REQUEST['selec'])){
-    ?>
-        <form action="">
-    <?php
-    $profetion=$_REQUEST['selec']; 
-    foreach($profetion as $profesion){
-    ?>
-    <label for="">Ingrese horas trabajadas</label>
-    <input type="number" name="time[]">
-    <br>
-    <?php
-    echo"<br>";
-    }
-    ?>
-    <input type="submit" value="Calcular">
-    </form>
-    <?php
-    } else{
+    }  else{
         $prof=$_REQUEST['selec'];
         $h=$_REQUEST['time'];
-        $salary_ing=200000;
-        $salary_tec=100000;
+        $salary_ing=2000000;
+        $salary_tec=1000000;
         $mes=$salary_ing/26;
         $mes_t=$salary_tec/26;
         $day=$mes/8;
-        $day_tec=$mes_t/8;
-        foreach($prof as $pr){
-        foreach($h as $hora){
-        $extra[]=$hora-160;
-        }
-            foreach($extra as $time){
-                if($time<=0 && $pr==1){
-                    echo"<p> Su salario es:  $salary_ing</p>";
-                }
-                elseif($time<=0 && $pr==2){
-                    echo"<p> Su salario es:  $salary_tec</p>";
+        $day_tec=$mes_t/8;  
+        foreach($prof as $profe){
+            foreach($h as $time){
+                echo $time;
+                $hora_extra=[(int)$time-160];//cpnvertir a int
+                foreach($hora_extra as $he){
+                    if($he==0 && $profe=="1"){
+                        echo "<p> ing $salary_ing</p>";
+                        echo "<br>";
+                    } elseif($he==0 && $profe="2"){
+                        echo"<p> tec $salary_tec</P";
+                        echo "<br>";
+                    } elseif($he>0 && $profe="1"){
+                        $pago=($day*$he)+$salary_ing;
+                        echo "pago con horas extras: i",round($pago);
+                        echo "<br>";
+                    } elseif($he>0 && $profe="2"){
+                        $pago_t=($day*$he)+$salary_tec;
+                        echo "pago con horas extras: t",round($pago_t);
+                        echo "<br>";
+                    }
                 }
             }
         }

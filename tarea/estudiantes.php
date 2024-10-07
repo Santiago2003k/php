@@ -1,3 +1,6 @@
+<?php
+include_once('conexion-e.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,13 +40,35 @@
                 <span><i class="icon icon-user"></i></span>
             </div>
             <div class="form-group">
+                <input type="number" class="form-control item" name="dni"  placeholder="Documento">
+            </div>
+            <div class="form-group">
                 <input type="text" class="form-control item" name="Nombre"  placeholder="Nombre">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control item" name="Apellido" placeholder="Apellido">
             </div>
+            
             <div class="form-group">
-                <input type="text" class="form-control item" name="grupo" placeholder="Grupo">
+            <select name="grupo"  class="form-control item">
+                <?php
+                $consulta=$conexion->query("SELECT * FROM grupo");
+                while($row=$consulta->fetch_array()){
+                    echo '<option value="',$row['nombre'],'"selected>',$row['nombre'],' - ',$row['estudiantes'],'</option>';
+                }
+                ?>
+            </select>
+            </div>
+            <br>
+            <div class="form-group">
+            <select name="profesor" class="form-control item" placeholder="Profesor">
+                <?php
+                $consulta=$conexion->query("SELECT * FROM grupo");
+                while($row=$consulta->fetch_array()){
+                    echo '<option class="form-control item" value="',$row['lidergrupo'],'"selected>',$row['lidergrupo'],'</option>';
+                }
+                ?>
+            </select>
             </div>
             <div class="form-group">
                 <input type="number" step="0.1" class="form-control item" name="Mate" placeholder="Nota de Matematicas">

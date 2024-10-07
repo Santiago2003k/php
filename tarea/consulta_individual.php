@@ -1,3 +1,6 @@
+<?php
+include_once('conexion-e.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,46 +33,48 @@
               </ul>
         </div>
       </nav>
-<section class="container">
-    <div class="registration-form ">
-        <form action="insert-p.php" method="POST">
-            <div class="form-icon">
-                <span><i class="icon icon-user"></i></span>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control item" name="Nombre"  placeholder="Nombre">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control item" name="Apellido" placeholder="Apellido">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control item" name="grupo" placeholder="Lider del grupo">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control item" name="Materia" placeholder="Materia encargardo">
-            </div>
-            <div class="form-group">
-                <input type="text"  class="form-control item" name="genero" placeholder="Genero">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-block create-account">Enviar</button>
-            </div>
-        </form>
-        <div class="social-media">        
-            <form action="consulta-p.php" style="border-radius:0px;" >
-                <button type="submit"class="btn btn-block create-account">Consultar</button>
-            </form>
-            <form action="consulta_individual.php" style="border-radius:0px; box-shadow:0px rgba(#white);" >
-                <button type="submit" class="btn btn-block create-account">Consultar Individual</button>
-                <div class="social-icons d-flex justify-content-center">
+    <div class="registration-form">
+    <form action="" method="POST">
+        <select name="documento" class="form-control item">
+        <?php
+            $consulta=$conexion->query("SELECT * from estudiante");
+            while($row=$consulta->fetch_array()){
+                echo '<option name="dni" class="form-control item" value="',$row['documento'],'"selected>',$row['documento'],'</option>';
+            }
+        ?>
+        </select>
+        <button type="submit" class="btn btn-primary btn-block create-account">Consultar</button>
+        <div class="social-icons d-flex justify-content-center">
                     <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
                     <a href="#"><i class="icon-social-google" title="Google"></i></a>
                     <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
                 </div>
-            </form>
+        </form>
         </div>
-    </div>
-</section>
-<script src="js.js"></script>
+    <?php
+    if(isset($_POST['documento'])){
+        ?>
+        <form action="">
+        <?php
+        $document=$_POST['documento'];
+        $consulta=$conexion->query("SELECT * from estudiante where documento='$document'");
+        while($row=$consulta->fetch_array()){
+            $name= $row['nombre'];
+            $last= $row['apellido'];
+            $promedio= $row['promedio'];
+            $estado=$row['estado'];
+            echo '<div class="social-media">';
+            echo '<p class="text-center" style="color:white;">',$name;
+            echo '<br>';
+            echo 'Apellido: ',$last;
+            echo '<br>';
+            echo 'Promedio: ',$promedio;
+            echo '<br>';
+            echo 'Estado: ',$estado;
+            echo '</div>';
+        }
+    }
+?>
+    </form>
 </body>
 </html>

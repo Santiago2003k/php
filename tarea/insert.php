@@ -1,17 +1,19 @@
 <?php
 include_once ('conexion-e.php');
-$nam=$_REQUEST['Nombre'];
-$ap=$_REQUEST['Apellido'];
-$grupo=$_REQUEST['grupo'];
-$mate=$_REQUEST['Mate'];
-$ing=$_REQUEST['Ingles'];
-$hi=$_REQUEST['Historia'];
+$dni=$_POST['dni'];
+$nam=$_POST['Nombre'];
+$ap=$_POST['Apellido'];
+$grupo=$_POST['grupo'];
+$mate=$_POST['Mate'];
+$ing=$_POST['Ingles'];
+$hi=$_POST['Historia'];
+$profe=$_POST['profesor'];
 $promedio=($ing+$hi+$mate)/3;
 if($promedio>=3){
     $estado="Aprobado";
 } else{
     $estado="Reprobado";
 }
-$conexion->query("Insert into estudiante ( nombre, apellido, grupo, matematicas, ingles, historia, promedio, estado) values('$nam','$ap','$grupo',$mate,$ing,$hi,$promedio,'$estado')");
+$conexion->query("Insert into estudiante ( documento, nombre, apellido, grupo, lidergrupo, matematicas, ingles, historia, promedio, estado) values($dni, '$nam','$ap','$grupo','$profe',$mate,$ing,$hi,$promedio,'$estado')");
 include_once('consulta-e.php');
 ?>

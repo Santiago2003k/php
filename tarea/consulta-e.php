@@ -31,9 +31,11 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
+      <th scope="col">Documento</th>
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
       <th scope="col">Grupo</th>
+      <th scope="col">Lider grupo</th>
       <th scope="col">Nota Matématicas</th>
       <th scope="col">Nota Ingles</th>
       <th scope="col">Nota Historia</th>
@@ -47,9 +49,11 @@
     $consulta=$conexion->query("SELECT * from estudiante");
     while ($row=$consulta-> fetch_array()){
         $id=$row['id'];
+        $dni=$row['documento'];
         $name=$row['nombre'];
         $last=$row['apellido'];
         $groupe=$row['grupo'];
+        $profe=$row['lidergrupo'];
         $maths=$row['matematicas'];
         $english=$row['ingles'];
         $history=$row['historia'];
@@ -57,9 +61,11 @@
         $status=$row['estado'];
         echo "<tr>";
         echo "<th scope='row'>$id</th>";
+        echo "<td>$dni</td>";
         echo "<td>$name</td>";
         echo "<td>$last</td>";
         echo "<td>$groupe</td>";
+        echo "<td>$profe</td>";
         echo "<td>$maths</td>";
         echo "<td>$english</td>";
         echo "<td>$history</td>";
